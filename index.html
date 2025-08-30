@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Eco Shop — Soil + Natural Fiber Tableware</title>
+<style>
+  :root{
+    --bg:#071017; --panel:#0d141a; --muted:#9bb0c0; --text:#eaf6ef;
+    --accent:#7cd992; --accent2:#6bd4c3; --card:#0f1a20;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;color:var(--text);background:linear-gradient(180deg,#071017,#0b141a 30%);}
+  a{color:inherit}
+  .container{max-width:1100px;margin:0 auto;padding:24px}
+  header{position:sticky;top:0;background:rgba(6,12,14,.6);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,.04);z-index:20}
+  .nav{display:flex;align-items:center;gap:12px;padding:12px 24px}
+  .brand{font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .spacer{flex:1}
+  .btn{background:#122027;border:1px solid rgba(255,255,255,.06);padding:.6rem .85rem;border-radius:12px;color:var(--text);cursor:pointer}
+  .btn.accent{background:linear-gradient(180deg,var(--accent),var(--accent2));color:#05311e;font-weight:700;border:none}
+  .hero{display:grid;grid-template-columns:1fr 380px;gap:20px;padding:36px 0}
+  .card{background:linear-gradient(180deg,var(--card),#0b1419);border-radius:16px;padding:16px;border:1px solid rgba(255,255,255,.04);box-shadow:0 12px 30px rgba(0,0,0,.45)}
+  h1{margin:.1rem 0 8px}
+  p.lead{color:var(--muted);max-width:54ch}
+  .grid{display:grid;gap:18px}
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:14px}
+  .prod-img{height:100px;border-radius:12px;overflow:hidden;background:#071217;display:grid;place-items:center;border:1px solid rgba(255,255,255,.03)}
+  .prod-img img{width:100px;height: 150px;;object-fit:cover}
+  .product-card{display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:12px;background:linear-gradient(180deg,#0f1b20,#0c1517);border:1px solid rgba(255,255,255,.03)}
+  .price{font-weight:800;color:var(--accent2)}
+  .chip{display:inline-block;padding:.25rem .5rem;border-radius:999px;background:rgba(124,217,146,.08);border:1px solid rgba(124,217,146,.12);color:var(--accent)}
+  /* cart drawer / modal */
+  .drawer{position:fixed;inset:0;display:none;align-items:center;justify-content:center}
+  .drawer.show{display:flex}
+  .shade{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+  .panel{position:relative;z-index:5;width:min(920px,96%);max-height:90vh;overflow:auto;border-radius:12px;padding:18px;background:linear-gradient(180deg,#071217,#08121a);border:1px solid rgba(255,255,255,.05)}
+  .row{display:flex;gap:12px;align-items:center}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:8px;border-bottom:1px dashed rgba(255,255,255,.04);text-align:left}
+  .muted{color:var(--muted)}
+  footer{margin-top:30px;color:var(--muted);padding:20px 0;text-align:center}
+  @media (max-width:880px){ .hero{grid-template-columns:1fr;}.prod-img{height:140px} }
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav container">
+    <div class="brand">Eco Shop</div>
+    <a class="btn" href="#home">Home</a>
+    <a class="btn" href="#products">Products</a>
+    <a class="btn" href="#about">About</a>
+    <div class="spacer"></div>
+    <button id="openCartBtn" class="btn">🛒 Cart <span id="cartCount" style="margin-left:8px;color:var(--muted)">0</span></button>
+  </nav>
+</header>
+
+<main class="container">
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div>
+      <h1>Soil + Natural Fiber Tableware</h1>
+      <p class="lead">Cups, plates and spoons made by mixing composted soil from our AI-Bin with natural fibers (coconut coir, banana, jute, hemp). Molded, heat-pressed and finished with an eco wax — fully biodegradable and nutrient-rich when returned to the earth.</p>
+
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button class="btn accent" onclick="location.hash='#products'">Shop </button>
+        <button class="btn" onclick="location.hash='#process'">Manufacturing Process</button>
+      </div>
+
+      <div style="margin-top:18px" class="card">
+        <h3 style="margin-top:0">Why Soil + Fiber?</h3>
+        <ul class="muted" style="margin:8px 0 0 18px">
+          <li>✅ Uses farm waste + compost → closes the loop</li>
+          <li>✅ Adds nutrients back to soil when composted</li>
+          <li>✅ No synthetic resin — only natural starch / plant wax</li>
+        </ul>
+      </div>
+    </div>
+
+    <aside class="card">
+      <h4 style="margin:6px 0">Quick specs</h4>
+      <p class="muted">Process highlights:</p>
+      <ul class="muted" style="margin-left:16px">
+        <li>Fiber prep: clean, dry, chop</li>
+        <li>Mix: 50% fine composted soil + 50% fiber powder</li>
+        <li>Binder: tapioca/rice starch</li>
+        <li>Harden: heat press 70–90°C or solar dry</li>
+        <li>Finish: beeswax / rice bran wax coating</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" style="margin-top:18px">
+    <div class="card">
+      <h2 style="margin-top:0">Top Collection — Soil + Natural Fiber</h2>
+
+      <div class="product-grid" id="productGrid">
+        <!-- product cards inserted by JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" style="margin-top:18px">
+    <div class="card">
+      <h2 style="margin-top:0">Step-by-step process (summary)</h2>
+      <ol class="muted" style="margin-left:16px">
+        <li><strong>Fiber preparation:</strong> clean, sun-dry, chop fibers (banana, coconut, jute, hemp).</li>
+        <li><strong>Soil & fiber blend:</strong> mix fine composted soil + fiber powder (50:50), add natural starch binder to make it moldable.</li>
+        <li><strong>Molding:</strong> press into cup/plate/spoon molds; heat-press at 70–90°C or solar-dry until hardened.</li>
+        <li><strong>Surface coating:</strong> dip or brush with beeswax or rice bran wax for water resistance.</li>
+        <li><strong>Finishing:</strong> trim edges, polish, and print brand logo with natural ink.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="margin-top:18px">
+    <div class="card">
+      <h2 style="margin-top:0">About this line</h2>
+      <p class="muted">Each product is intentionally formulated to be compost-friendly. When returned to a home compost or community compost, the products break down and feed soil microorganisms — turning back into the resource that made them.</p>
+    </div>
+  </section>
+</main>
+
+<!-- CART / CHECKOUT DRAWER (modal) -->
+<div id="drawer" class="drawer" role="dialog" aria-hidden="true">
+  <div class="shade" onclick="closeDrawer()"></div>
+  <div class="panel" aria-modal="true">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <strong id="drawerTitle">Your Cart</strong>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn" onclick="closeDrawer()">Close</button>
+      </div>
+    </div>
+
+    <div id="cartContents" class="grid"></div>
+
+    <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <div class="muted">Total:</div>
+      <div style="font-weight:800">₹<span id="totalAmount">0</span></div>
+    </div>
+
+    <div style="margin-top:12px;">
+      <form id="checkoutForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <input name="name" required placeholder="Full name" class="btn" style="background:#081017;border:1px solid rgba(255,255,255,.04);color:var(--text)">
+          <input name="phone" required placeholder="Phone or UPI ID" class="btn" style="background:#081017;border:1px solid rgba(255,255,255,.04);color:var(--text)">
+        </div>
+        <div style="margin-top:8px">
+          <label class="muted">Payment method</label>
+          <select name="method" required class="btn" style="width:100%;margin-top:6px;background:#081017;border:1px solid rgba(255,255,255,.04);color:var(--text)">
+            <option value="UPI">UPI (Demo)</option>
+            <option value="Razorpay">Razorpay (Demo)</option>
+            <option value="COD">Cash on delivery</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+          <button type="button" class="btn" onclick="emptyCart()">Empty</button>
+          <button type="submit" class="btn accent">Place Demo Order</button>
+        </div>
+        <div id="checkoutMsg" class="muted" style="margin-top:10px;display:none">Order placed — saved locally (demo).</div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container muted">© <span id="year"></span> Eco Shop — Soil + Natural Fiber Tableware</div>
+</footer>
+
+<script>
+/* ===== Data: products follow your soil+fiber process ===== */
+const PRODUCTS = [
+  {
+    id: 'ES-CUP',
+    title: 'Eco-Soil Cup (200 ml)',
+    price: 60,
+    stock: 120,
+    img: 'eco-soil cup.jpg',
+    desc: 'Compost-enriched soil + coconut coir + rice husk. Heat-pressed, coated with rice-wax. Compostable & nutrient-returning.'
+  },
+  {
+    id: 'ES-PLATE',
+    title: 'Eco-Soil Plate (10") — Pack of 5',
+    price: 150,
+    stock: 60,
+    img: 'eco-soil plate.jpg',
+    desc: 'Blend of composted soil + banana fiber + areca pulp. Pressed for strength and compostable in ~60–90 days.'
+  },
+  {
+    id: 'ES-SPOON',
+    title: 'Eco-Soil Spoon (6")',
+    price: 25,
+    stock: 300,
+    img: 'eco-soil spoon.jpg',
+    desc: 'Soil + hemp fiber + bamboo powder. Smooth finish, sturdy for multiple uses, fully composts.'
+  }
+];
+
+/* ===== State ===== */
+const STATE = {
+  cart: JSON.parse(localStorage.getItem('es_cart')||'[]'),
+  orders: JSON.parse(localStorage.getItem('es_orders')||'[]'),
+  inventory: JSON.parse(localStorage.getItem('es_inventory')||'null') || Object.fromEntries(PRODUCTS.map(p=>[p.id,p.stock]))
+};
+
+/* ===== Helpers ===== */
+const $ = s => document.querySelector(s);
+const fmt = v => Number(v).toFixed(0);
+
+/* ===== Render products ===== */
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  PRODUCTS.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    const avail = STATE.inventory[p.id] || 0;
+    card.innerHTML = `
+      <div class="prod-img"><img src="${p.img}" alt="${p.title}"></div>
+      <div style="display:flex;justify-content:space-between;align-items:start">
+        <div>
+          <h3 style="margin:6px 0">${p.title}</h3>
+          <div class="muted" style="font-size:.9rem">${p.desc}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="price">₹${p.price}</div>
+          <div class="muted" style="font-size:.85rem">Stock: ${avail}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:space-between;margin-top:12px">
+        <div style="display:flex;gap:6px;align-items:center">
+          <button class="btn" onclick="addToCart('${p.id}')">Add to Cart</button>
+          <button class="btn" onclick="buyNow('${p.id}')">Buy Now</button>
+        </div>
+        <div><span class="chip">Soil + Fiber</span></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ===== Cart management ===== */
+function saveCart(){ localStorage.setItem('es_cart', JSON.stringify(STATE.cart)); renderCartCount(); }
+function renderCartCount(){ const count = STATE.cart.reduce((s,i)=>s+i.qty,0); $('#cartCount').textContent = count; }
+
+function addToCart(id){
+  const stock = STATE.inventory[id] || 0;
+  const item = STATE.cart.find(x=>x.id===id);
+  const currentQty = item? item.qty:0;
+  if(currentQty >= stock){ alert('Not enough stock'); return; }
+  if(item) item.qty++; else STATE.cart.push({id, qty:1});
+  saveCart();
+  openDrawer();
+  renderCartContents();
+}
+
+function buyNow(id){
+  // clear cart and add only this product then open checkout
+  STATE.cart = [{id, qty:1}];
+  saveCart();
+  openDrawer();
+  renderCartContents();
+}
+
+/* ===== Drawer / checkout UI ===== */
+const drawer = $('#drawer');
+function openDrawer(){ drawer.classList.add('show'); drawer.setAttribute('aria-hidden','false'); renderCartContents(); }
+function closeDrawer(){ drawer.classList.remove('show'); drawer.setAttribute('aria-hidden','true'); }
+
+document.getElementById('openCartBtn').addEventListener('click', openDrawer);
+
+function renderCartContents(){
+  const holder = $('#cartContents');
+  holder.innerHTML = '';
+  if(STATE.cart.length === 0){
+    holder.innerHTML = '<div class="muted">Your cart is empty.</div>';
+    $('#totalAmount').textContent = '0';
+    renderCartCount();
+    return;
+  }
+  const tbl = document.createElement('table');
+  const thead = document.createElement('thead');
+  thead.innerHTML = '<tr><th>Product</th><th>Qty</th><th>Price</th><th></th></tr>';
+  tbl.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  let total = 0;
+  STATE.cart.forEach(ci=>{
+    const prod = PRODUCTS.find(p=>p.id===ci.id);
+    const tr = document.createElement('tr');
+    const line = prod.price * ci.qty;
+    total += line;
+    tr.innerHTML = `
+      <td>${prod.title}</td>
+      <td>
+        <button class="btn" onclick="changeQty('${ci.id}', ${ci.qty-1})">−</button>
+        <span style="padding:0 8px">${ci.qty}</span>
+        <button class="btn" onclick="changeQty('${ci.id}', ${ci.qty+1})">+</button>
+      </td>
+      <td>₹${line}</td>
+      <td><button class="btn" onclick="removeFromCart('${ci.id}')">Remove</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  tbl.appendChild(tbody);
+  holder.appendChild(tbl);
+  $('#totalAmount').textContent = total;
+  renderCartCount();
+}
+
+function changeQty(id, qty){
+  qty = Math.max(0, qty|0);
+  if(qty === 0) return removeFromCart(id);
+  const stock = STATE.inventory[id] || 0;
+  if(qty > stock){ alert('Not enough stock'); return; }
+  const it = STATE.cart.find(x=>x.id===id);
+  if(it) it.qty = qty;
+  saveCart();
+  renderCartContents();
+}
+
+function removeFromCart(id){
+  STATE.cart = STATE.cart.filter(x=>x.id !== id);
+  saveCart();
+  renderCartContents();
+}
+
+function emptyCart(){
+  if(!confirm('Empty the cart?')) return;
+  STATE.cart = [];
+  saveCart();
+  renderCartContents();
+}
+
+/* ===== Checkout (demo) ===== */
+document.getElementById('checkoutForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  if(STATE.cart.length === 0){ alert('Cart is empty'); return; }
+  const fd = new FormData(e.target);
+  const name = fd.get('name').trim();
+  const phone = fd.get('phone').trim();
+  const method = fd.get('method');
+  if(!name || !phone){ alert('Provide name and phone/UPI'); return; }
+
+  // simulate order creation
+  const items = STATE.cart.map(it=>{
+    const prod = PRODUCTS.find(p=>p.id===it.id);
+    return {id:prod.id, title:prod.title, qty:it.qty, price:prod.price};
+  });
+  const total = items.reduce((s,i)=>s + i.price * i.qty, 0);
+  const order = {
+    id: 'ORD' + Date.now().toString().slice(-6),
+    date: new Date().toISOString(),
+    name, phone, method, items, total
+  };
+
+  // reduce inventory
+  let outOfStock = false;
+  order.items.forEach(it=>{
+    const avail = STATE.inventory[it.id] || 0;
+    if(it.qty > avail) outOfStock = true;
+  });
+  if(outOfStock){ alert('One of the items is out of stock. Adjust quantity.'); return; }
+
+  order.items.forEach(it=>{
+    STATE.inventory[it.id] = Math.max(0, (STATE.inventory[it.id]||0) - it.qty);
+  });
+
+  STATE.orders.unshift(order);
+  STATE.cart = [];
+  localStorage.setItem('es_orders', JSON.stringify(STATE.orders));
+  localStorage.setItem('es_inventory', JSON.stringify(STATE.inventory));
+  saveCart();
+  renderProducts();
+  renderCartContents();
+  $('#checkoutMsg').style.display = 'block';
+  setTimeout(()=>$('#checkoutMsg').style.display = 'none', 2200);
+
+  alert(`Demo payment (${method}) successful!\nOrder ID: ${order.id}\nTotal: ₹${order.total}`);
+  closeDrawer();
+});
+
+/* ===== init ===== */
+function init(){
+  renderProducts();
+  renderCartCount();
+  // restore inventory in memory if not present
+  localStorage.getItem('es_inventory') && (STATE.inventory = JSON.parse(localStorage.getItem('es_inventory')));
+  document.getElementById('year').textContent = new Date().getFullYear();
+}
+init();
+
+/* ===== Expose small API for debugging in console ===== */
+window._ES = {STATE, PRODUCTS, addToCart, buyNow, renderProducts};
+
+</script>
+
+<!-- year element -->
+<script>document.write('<div id="year" style="display:none"></div>')</script>
+</body>
+</html>
